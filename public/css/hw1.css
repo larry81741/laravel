@@ -1,0 +1,101 @@
+.title {
+  margin-top: 20px;
+  border-bottom: 1px solid #dddbdb;
+}
+
+.title > .icon-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.title > .icon-block > .title-icon {
+  width: 75px;
+  height: 75px;
+}
+
+.title > .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 100%;
+}
+
+.title > .data > span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 10px;
+}
+
+.title > .data > span > p {
+  color: #db3b00;
+}
+
+.imformation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.imformation > img {
+  width: 35.33%;
+  margin-right: 30px;
+}
+
+.imformation > .imformation-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.imformation > .imformation-text > :first-child {
+  background-color: #a44cc4;
+  padding: 3px 20px;
+  color: white;
+  width: 104px;
+  margin-bottom: 30px;
+}
+
+.imformation > .imformation-text > :nth-child(2) {
+  font-size: 24px;
+  text-decoration: none;
+  color: black;
+  margin-bottom: 22px;
+}
+
+.imformation > .imformation-text > :nth-child(3) {
+  font-size: 20px;
+  color: #db3b00;
+  margin-bottom: 10px;
+}
+
+.imformation > .imformation-text > :nth-child(4) {
+  font-size: 18px;
+}
+/*# sourceMappingURL=hw1.css.map */
