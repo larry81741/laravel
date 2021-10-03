@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    testtest{{$data,$data1,$data2}}
-</body>
-</html>
+@extends('layouts.template')
+
+@section('css')
+@endsection
+
+@section('main')
+    <div>{{ $newsDetail->id}}</div>
+    <div>{{ $newsDetail->title }}</div>
+    <div>{{ $newsDetail->img }}</div>
+    <div>{{ $newsDetail->date }}</div>
+@endsection
+
+@section('js')
+@endsection
