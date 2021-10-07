@@ -29,6 +29,9 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNAV">
                     <ul class="navbar-nav d-flex align-items-center">
                         <li class="nav-item ">
+                            <a class="nav-link active" href="/news">News</a>
+                        </li>
+                        <li class="nav-item ">
                             <a class="nav-link active" href="#">Blog</a>
                         </li>
                         <li class="nav-item ">

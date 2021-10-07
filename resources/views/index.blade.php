@@ -478,18 +478,34 @@
         width="100%" height="700" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     <div
         class="position-card position-absolute top-50 end-0 translate-middle-y bg-white me-5 p-4 h-75 col-10  col-md-5  col-xl-3 rounded">
-        <span>Feedback</span>
+        <span>聯絡我們</span>
         <p>Post-ironic portland shabby chic echo park, banjo fashion axe</p>
-        <div class="email d-flex flex-wrap mb-3">
-            <span>Email</span>
-            <input type="email" class=" w-100 rounded">
-        </div>
-        <div class="message  d-flex flex-wrap h-25 mb-5">
-            <span>Message</span>
-            <input type="text" class=" w-100 h-100 rounded">
-        </div>
-        <button type="button" class="btn btn-primary w-100 mb-2">Button</button>
-        <p>Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
+        <form action="/contect_us/store" method="POST">
+            @csrf
+            <div class="form-group">
+                <label for="name">姓名</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="email">信箱</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="phone">電話</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="main">主旨</label>
+                <input type="text" id="main" name="title">
+            </div>
+            <div class="form-group">
+                <label for="content">內文</label>
+                <textarea name="content" id="content" cols="30" rows="10" name="content"></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">qwe</button>
+            
+        </form>
+
     </div>
 </section>
 @endsection

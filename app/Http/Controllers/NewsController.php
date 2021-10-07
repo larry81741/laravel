@@ -16,23 +16,38 @@ class NewsController extends Controller
 
     public function create()
     {
-        News::create(
-            [
-                'title' => 'asd',
-                'date' => '2021-05-05',
-                'img' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB_lpjTSZzRSWUMhUH6XPZ0VWseidGXdIRnQ&usqp=CAU',
-                'content' => 'asdqwe',
-                'views' => 0
-            ]
-        );
+        return view('news.create_news');
+
     }
-    public function update($id)
-    {
-        News::where('id', $id)->update(['title' => "test test"]);
-    }
+
     public function delete($id)
     {
-        News::where('id', $id)->delete();
+        News::find($id)->delete();
+        return redirect('/news');
+    }
+    public function store(Request $request)
+    {
+        //取得資料
+        // dd($request->all());
+        //儲存資料
+        News::create([
+            'title'=>$request->title,
+            'date'=>$request->date,
+            'img'=>$request->img,
+            'content'=>$request->content,
+        ]);
+        // 欄位名稱與資料庫相同時-->    News::create($request->all());
+        return redirect('/news');
+    }
+    public function edit($id)
+    {
+        $news =News::find($id);
+        return view('news.edit_news',compact('news'));
+    }
+    public function update($id,Request $request)
+    {
+        News::find($id)->update($request->all());
+        return redirect('/news');
     }
 
 
@@ -43,7 +58,7 @@ class NewsController extends Controller
         if ($newsDetail == null) {
             return redirect('news');
         } else {
-            return view('test', compact('newsDetail'));
+            return view('/test', compact('newsDetail'));
         }
     }
 }
