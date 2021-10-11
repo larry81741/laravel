@@ -4,61 +4,63 @@ namespace App\Http\Controllers;
 
 use App\News;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
+    //
     public function index()
     {
-        $newsData = News::get();
-        return view('news.hw1', compact('newsData'));
+        $newsData=News::get();
+        return view('admin.news.index',compact('newsData'));
     }
-
+    //
     public function create()
     {
-        return view('news.create_news');
-
-    }
-
-    public function delete($id)
-    {
-        News::find($id)->delete();
-        return redirect('/news');
+        return view('admin.news.create');
     }
     public function store(Request $request)
     {
-        //取得資料
-        // dd($request->all());
-        //儲存資料
-        News::create([
-            'title'=>$request->title,
-            'date'=>$request->date,
-            'img'=>$request->img,
-            'content'=>$request->content,
-        ]);
-        // 欄位名稱與資料庫相同時-->    News::create($request->all());
-        return redirect('/news');
+        $requsetData=$request->all();
+        if( $request->hasFile('img')){
+            $file=$request->file('img');
+            $path=$this->fileUpload($file,'product');
+            $requsetData['img']=$path;
+        }
+        News::create( $requsetData);
+        return redirect('admin/news');
     }
+    //
     public function edit($id)
     {
-        $news =News::find($id);
-        return view('news.edit_news',compact('news'));
+        $news=News::find($id);
+        return view('admin.news.edit',compact('news'));
     }
+
+    //
     public function update($id,Request $request)
     {
         News::find($id)->update($request->all());
-        return redirect('/news');
+        return redirect('/admin/news');
     }
-
-
-    public function detail($id)
+    public function delete($id)
     {
-
-        $newsDetail = News::find($id);
-        if ($newsDetail == null) {
-            return redirect('news');
-        } else {
-            return view('/test', compact('newsDetail'));
-        }
+        News::find($id)->delete();
+        return redirect('/admin/news');
     }
+
+
+private function fileUpload($file,$dir){
+    if(!is_dir('upload/')){
+        mkdir('upload/');
+    }
+    if(!is_dir('upload/'.$dir)){
+        mkdir('upload/'.$dir);
+    }
+    $extension=$file->getClientOriginalExtension();
+    $filename=strval(time().md5(rand(100,200))).'.'.$extension;
+    move_uploaded_file($file,public_path().'/upload'.$dir.'/'.$filename);
+    return '/upload/'.$dir.'/'.$filename;
+}
+
+    
 }

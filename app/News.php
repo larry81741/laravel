@@ -4,10 +4,28 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property integer $id
+ * @property string $title
+ * @property string $date
+ * @property string $img
+ * @property string $content
+ * @property int $views
+ * @property string $created_at
+ * @property string $updated_at
+ */
 class News extends Model
 {
-    protected $table = 'news';
-    protected $guarded = ['views'];//不可更改的欄位(黑名單)
-    // protected $fillable = ['title', 'date', 'img', 'content', 'created_at']; //可存取更改的欄位(白名單) 
-    //黑名單&白名單則一 ，白名單權力較大
+    /**
+     * The "type" of the auto-incrementing ID.
+     * 
+     * @var string
+     */
+    protected $keyType = 'integer';
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['title', 'date', 'img', 'content', 'views', 'created_at', 'updated_at'];
+
 }
