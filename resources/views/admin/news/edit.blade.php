@@ -23,7 +23,6 @@
                 <label for="content">內容</label>
                 <textarea name="content" id="content" cols="30" rows="10">{{$news->content}}</textarea>
             </div
-           
         </form>
         <button type="submit" class="btn btn-primary">修改</button>
     </div>
