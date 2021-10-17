@@ -4,11 +4,11 @@
 @endsection
 @section('main')
     <div class="container" class="p-5">
-        <form action="/admin/product/store" method='POST' class="mx-auto" enctype="multipart/form-data">
+        <form action="/admin/product/edit/{{$product->id}}" method='POST' class="mx-auto" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="type">類型</label>
-                <input type="text" id="type" name="type">
+                <input type="text" id="type" name="type" value="{{$product->id}}">
             </div>
             <div class="form-group">
                 <label for="name">名稱</label>
