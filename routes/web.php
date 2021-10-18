@@ -43,6 +43,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'ProductController@edit');
         Route::post('/update/{id}', 'ProductController@update');
         Route::post('/delete/{id}', 'ProductController@delete');
+
+        Route::get('type',function($id){
+            Route::get('/', 'ProductTypeController@index');
+            Route::get('/create', 'ProductTypeController@create');
+            Route::post('/store', 'ProductTypeController@store');
+            Route::get('/edit/{id}', 'ProductTypeController@edit');
+            Route::post('/update/{id}', 'ProductTypeController@update');
+            Route::post('/delete/{id}', 'ProductTypeController@delete');
+        });
     });
 });
 Route::prefix('product')->group(function () {

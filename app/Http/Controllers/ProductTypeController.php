@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class ProductTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        $products = Product::get();
-        return view('admin.product.index', compact('products'));
+        
+        $productTypes=ProductType::get();
+        return view('admin.product.type.index',compact('productTypes'));
     }
 
     /**
@@ -29,7 +28,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view('admin.product.create');
+        return view('admin.product.type.create');
     }
 
     /**
@@ -41,16 +40,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $productData = $request->all();
-        if ($request->hasFile('img')) {
-            $file = $request->file('img');
-            $path = Storage::disk('myfile')->putFile('product', $file);
-            // $path=$this->fileUpload($file,'product');
-            $productData['img'] = Storage::disk('myfile')->url($path);
-        }
-
-        Product::create($productData);
-        return redirect('/admin/product');
+        ProductType::create($request->all());
+        return redirect('/admin/product/type');
     }
 
     /**
@@ -73,9 +64,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         //
-        $product=Product::find($id);
-        // dd($product);
-        return view('admin.product.edit',compact('product'));
+        $news= ProductType::find($id);
+        return view('admin.product.type.edit',compact('productTypes'));
     }
 
     /**
@@ -88,17 +78,8 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        
-        $product = Product::find($id);
-        $requestData = $request->all();
-        if ($request->hasFile('img')) {
-            File::delete(public_path().$product->img);
-            $file = $request->file('img');
-            $path = Storage::disk('myfile')->putFile('product', $file);
-            $requestData['img'] = Storage::disk('myfile')->url($path);
-        }
-        $product->update($requestData);
-        return redirect('/admin/product');
+        ProductType::find($id)->update($request->all());
+        return redirect('/admin/product/type');
     }
 
     /**
@@ -110,9 +91,7 @@ class ProductController extends Controller
     public function delete($id)
     {
         //
-        $product=Product::find($id);
-        File::delete(public_path().$product->img);
-        $product->delete();
-        return redirect('/admin/product');
+        ProductType::find($id)->delete();
+        return redirect('/admin/product/type');
     }
 }

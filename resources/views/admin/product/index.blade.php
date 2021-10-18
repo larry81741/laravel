@@ -26,9 +26,9 @@
                         <td><img src="{{asset($product->img)}}" alt="" width="200"></td>
                         <td>{{ $product->price }}</td>
                         <td>
-                            <a href="/admin/news/edit/{{ $product->id }}" class="btn btn-primary">編輯</a>
+                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">編輯</a>
                             <button class="btn btn-danger delete-btn" onclick="if(confirm('刪除?'))document.querySelector('#delete_{{ $product->id }}').submit();">刪除</button>
-                            <form id="delete_{{ $product->id }}" action="/admin/news/delete/{{ $product->id }}"
+                            <form id="delete_{{ $product->id }}" action="/admin/product/delete/{{ $product->id }}"
                                 method="POST" class="d-none">
                                 @csrf
                             </form>

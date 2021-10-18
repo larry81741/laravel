@@ -7,8 +7,8 @@
         <form action="/admin/product/store" method='POST' class="mx-auto" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="type">類型</label>
-                <input type="text" id="type" name="type">
+                <label for="title">類型</label>
+                <input type="text" id="title" name="title">
             </div>
             <div class="form-group">
                 <label for="name">名稱</label>
