@@ -4,31 +4,25 @@
 @endsection
 @section('main')
     <div class="container">
-        <a href="/admin/product/create" class="btn btn-success">新增產品</a>
+        <a href="/admin/product/type/create" class="btn btn-success">新增產品類別</a>
         <hr>
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>類別</th>
-                    <th>名稱</th>
-                    <th>簡介</th>
-                    <th>圖片</th>
-                    <th>價格</th>
-                    <th width="150">操作</th>
+                    <th>ID</th>
+                    <th>類別名稱</th>
+                    <th width="100">操作</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @foreach ($productTypes as $productType)
                     <tr>
-                        <td>{{ $product->type_id }}</td>
-                        <td>{{ $product->name }}</td>
-                        <td>{{ $product->description }}</td>
-                        <td><img src="{{asset($product->img)}}" alt="" width="200"></td>
-                        <td>{{ $product->price }}</td>
+                        <td>{{ $productType->id }}</td>
+                        <td>{{ $productType->name }}</td>
                         <td>
-                            <a href="/admin/product/edit/{{ $product->id }}" class="btn btn-primary">編輯</a>
+                            <a href="/admin/product/type/edit/{{ $productType->id }}" class="btn btn-primary">編輯</a>
                             <button class="btn btn-danger delete-btn" onclick="if(confirm('刪除?'))document.querySelector('#delete_{{ $product->id }}').submit();">刪除</button>
-                            <form id="delete_{{ $product->id }}" action="/admin/product/delete/{{ $product->id }}"
+                            <form id="delete_{{ $productType->id }}" action="/admin/product/type/delete/{{ $productType->id }}"
                                 method="POST" class="d-none">
                                 @csrf
                             </form>

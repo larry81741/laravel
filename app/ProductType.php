@@ -8,6 +8,6 @@ class ProductType extends Model
 {
     //
         //
-        protected $table='product_types';
+        protected $table='products_types';
         protected $fillable=['name'];
 }

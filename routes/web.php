@@ -43,8 +43,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'ProductController@edit');
         Route::post('/update/{id}', 'ProductController@update');
         Route::post('/delete/{id}', 'ProductController@delete');
-
-        Route::get('type',function($id){
+        Route::prefix('type')->group(function () {
             Route::get('/', 'ProductTypeController@index');
             Route::get('/create', 'ProductTypeController@create');
             Route::post('/store', 'ProductTypeController@store');

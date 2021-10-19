@@ -15,7 +15,6 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        
         $productTypes=ProductType::get();
         return view('admin.product.type.index',compact('productTypes'));
     }
