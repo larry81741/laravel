@@ -20,13 +20,15 @@ class NewsController extends Controller
     }
     public function store(Request $request)
     {
+
         $requsetData=$request->all();
+
         if( $request->hasFile('img')){
             $file=$request->file('img');
             $path=$this->fileUpload($file,'product');
             $requsetData['img']=$path;
         }
-        News::create( $requsetData);
+        News::create($requsetData);
         return redirect('admin/news');
     }
     //
@@ -49,18 +51,7 @@ class NewsController extends Controller
     }
 
 
-private function fileUpload($file,$dir){
-    if(!is_dir('upload/')){
-        mkdir('upload/');
-    }
-    if(!is_dir('upload/'.$dir)){
-        mkdir('upload/'.$dir);
-    }
-    $extension=$file->getClientOriginalExtension();
-    $filename=strval(time().md5(rand(100,200))).'.'.$extension;
-    move_uploaded_file($file,public_path().'/upload'.$dir.'/'.$filename);
-    return '/upload/'.$dir.'/'.$filename;
-}
 
-    
+
+
 }
