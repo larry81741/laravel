@@ -1,10 +1,10 @@
-@extends('layouts.template');
+@extends('layouts.app')
 @section('css')
 
 @endsection
 @section('main')
     <div class="container" class="p-5">
-        <form action="/admin/news/update/{{$news->id}}" method='POST' class="mx-auto">
+        <form action="/admin/news/update/{{$news->id}}" method='POST' class="mx-auto" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">標題</label>
@@ -16,15 +16,16 @@
             </div>
             <div class="form-group">
                 <label for="img">圖片</label>
-                <img src="{{$news->img}}" alt="" width="220">
-                <input type="text" id="img" name="img" value="{{$news->img}}">
+                <input type="file" name="img"
+                    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                <img id="blah" src="{{ $news->img }}" alt="" width="600" />
             </div>
             <div class="form-group">
                 <label for="content">內容</label>
                 <textarea name="content" id="content" cols="30" rows="10">{{$news->content}}</textarea>
-            </div
+            </div>
+            <button type="submit" class="btn btn-primary">修改</button>
         </form>
-        <button type="submit" class="btn btn-primary">修改</button>
     </div>
 @endsection
 @section('js')

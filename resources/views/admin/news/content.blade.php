@@ -1,41 +1,55 @@
 @extends('layouts.app')
-
-
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/hw1.css') }}">
 @endsection
 @section('main')
-    <section>
-        <div class="title container">
-            <div class="icon-block">
-                <img class="title-icon" src="{{ $newsData[0]->img }}" alt="">
-                <h2>最新消息</h2>
-
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-around mb-3">
+            <div class="input-group  d-flex  ">
+                <span class="input-group-text" id="inputGroup-sizing-default">姓名</span>
+                <input type="text" class="form-control" id="name" aria-label="Sizing example input"
+                    style="max-width: 300px" value="">
             </div>
-            <div class="data" id="datainfor">
-                <span>資料總筆數：<p>2</p></span>
-                <span>每頁筆數：<p>10</p></span>
-                <span>總頁數：<p>1</p></span>
-                <span>目前頁次：<p>1</p></span>
-            </div>
+            <button type="button" class="btn btn-primary" style="width: 100px" onclick="select_manage()">查詢</button>
+        </div>
+        <div class="ms-auto mb-2 d-flex  align-items-center justify-content-end">
+            <label for="display-count" class="label-name mb-0">顯示筆數</label>
+            <select class="form-select ps-2" aria-label="Default select example" style="width: 100px"
+                onchange="select_manage()" id="display-count">
+                <option selected>10</option>
+                <option>20</option>
+                <option>30</option>
+            </select>
         </div>
 
-        <div id="listWithHandle">
-            @foreach ($newsData as $news)
-                <div class="imformation container">
-                    <img src="{{ $news->img }}" alt="">
-                    <div class="imformation-text">
-                        <span>最新消息</span>
-                        <a href="/news/detail/{{ $news->id }}">
-                            <h3>{{ $news->title }}</h3>
-                        </a>
-                        <span>{{ $news->date }}</span>
-                        <p>{{ $news->content }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+        <table id="" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>電話</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="listWithHandle">
+                {{-- @foreach ($newsData as $news)
+                    <tr>
+                        <td>{{ $news->title }}</td>
+                        <td>{{ $news->date }}</td>
+                        <td><img src="{{ asset($news->img) }}" width="200" alt=""></td>
+                        <td>{{ $news->content }}</td>
+                        <td>
+                            <a href="/admin/news/edit/{{ $news->id }}" class="btn btn-primary">編輯</a>
+                            <form action="/admin/news/delete/{{ $news->id }}" method='POST'>
+                                @csrf
+                                @method('delete')
+                                <button type="button" class="btn btn-danger delete-btn" onclick="isdelete(this)">刪除</button>
+                            </form>
+                        </td>
 
+                    </tr>
+                @endforeach --}}
+
+            </tbody>
+        </table>
         <nav aria-label="Search results pages" class="pagination-box d-flex justify-content-center">
             <ul class="pagination" onclick="paginate(event)">
                 <li class="page-item">
@@ -49,32 +63,40 @@
                 </li>
             </ul>
         </nav>
-    </section>
+        <button type="button" class="btn btn-primary" onclick="history.back()">返回</button>
+    </div>
 @endsection
 
 @section('js')
-<script>
-            select_manage()
+
+    <script>
+        select_manage()
         function paginate(e) {
             let el = Number(e.target.dataset.page);
             select_manage(el);
         }
+
         function select_manage(el = null) {
             const pagination = document.querySelector('.pagination')
+            const countvalue = document.querySelector('#display-count').value;
             const tabledata = document.querySelector('#listWithHandle');
-            const datainfor=document.querySelector('#datainfor');
+            const namevalue = document.querySelector('#name').value;
             let tmptabledata = "";
             // tabledata.innerHTML = "";
             let selectData = new FormData()
             selectData.append('currect_page', el);
+            selectData.append('length', countvalue);
             selectData.append('_token', '{{ csrf_token() }}');
-            fetch('/news/filter', {
+            selectData.append('name', namevalue);
+
+            fetch('/admin/news/content/{{ $id }}/filter', {
                     method: 'POST',
                     body: selectData,
                 }).then(function(response) {
                     return response.json(); //接收資料
                 })
                 .then(function(datas) {
+                    console.log(datas);
                     let number = ""
                     const paginate = paginationNum(datas.currectPage, datas.totalPage);
                     paginate.forEach(item => {
@@ -93,25 +115,13 @@
                     datas.data.forEach(data => {
                         tmptabledata +=
                         `
-                        <div class="imformation container">
-                    <img src="${data.img}" alt="">
-                    <div class="imformation-text">
-                        <span>最新消息</span>
-                        <a href="/news/content/${data.id}">
-                            <h3>${data.title}</h3>
-                        </a>
-                        <span>${data.date}</span>
-                        <p>${data.content}</p>
-                    </div>
-                </div>
+                        <tr>
+                            <td>${data.name}</td>
+                            <td>${data.phone}</td>
+                            <td>${data.mail}</td>
+                        </tr>
                         `
                     });
-                    datainfor.innerHTML=`
-                <span>資料總筆數：<p>${datas.totalDisplayRecords}</p></span>
-                <span>每頁筆數：<p>10</p></span>
-                <span>總頁數：<p>${datas.totalPage}</p></span>
-                <span>目前頁次：<p>${datas.currectPage}</p></span>
-                `
                     tabledata.innerHTML=tmptabledata;
                     pagination.innerHTML =
                     `
@@ -152,6 +162,23 @@
                 arr.push(i);
             }
             return arr;
+        }
+    </script>
+    <script>
+        function isdelete(newsid) {
+            Swal.fire({
+                title: '確定刪除嗎?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '確定!',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    newsid.parentElement.submit();
+                }
+            })
         }
     </script>
 @endsection

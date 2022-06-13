@@ -1,4 +1,4 @@
-@extends('layouts.template');
+@extends('layouts.app')
 @section('css')
 @endsection
 @section('main')
@@ -15,7 +15,9 @@
             </div>
             <div class="form-group">
                 <label for="img">圖片</label>
-                <input type="file" accept="image/*" id="img" name="img[]" multiple required onchange="testfun(this)">
+                <input type="file" name="img"
+                    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+                <img id="blah" alt="" width="600" />
             </div>
             <div class="form-group">
                 <label for="content">內容</label>
@@ -26,16 +28,4 @@
     </div>
 @endsection
 @section('js')
-    <script>
-        var reader = new FileReader();
-
-        function testfun(e) {
-            const eee = e
-            reader.addEventListener("load", function() {
-                console.log(this.result);
-            }, false);
-            // console.log(Array.from(eee.files));
-            [].forEach.call(eee.files, testfun);
-        }
-    </script>
 @endsection
