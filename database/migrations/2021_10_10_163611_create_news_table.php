@@ -19,7 +19,6 @@ class CreateNewsTable extends Migration
             $table->date('date');
             $table->longText('img');
             $table->longText('content');
-            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
